@@ -63,7 +63,7 @@ SoapClient soapClient = new SoapClient(username, password)
 [وب سرویس ملی پیامک](https://github.com/Melipayamak/Webservices)
 مراجعه نمایید .
 
-
+</div>
 <hr/>
 
 <div dir='rtl'>
@@ -83,6 +83,7 @@ soapClient.SendSimpleSMS(Array(to), from, text, isFlash)
 </div>
 
 #### دریافت وضعیت ارسال
+
 ```js
 restClient.GetDelivery(recId)
 soapClient.GetDelivery(recId)
@@ -102,22 +103,26 @@ soapClient.GetUsersMessagesByDate(location, from, index, count, dateFrom, dateTo
 ```
 
 #### موجودی
+
 ```js
 restClient.GetCredit()
 soapClient.GetCredit()
 ```
 
 #### تعرفه پایه / دریافت قیمت قبل از ارسال
+
 ```js
 restClient.GetBasePrice()
 soapClient.GetSmsPrice(irancellCount, mtnCount, from, text)
 ```
 #### لیست شماره اختصاصی
+
 ```js
 soapClient.GetUserNumbers()
 ```
 
 #### بررسی تعداد پیامک های دریافتی
+
 ```js
 soapClient.GetInboxCount(isRead)
 //پیش فرض خوانده نشده 
