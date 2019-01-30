@@ -28,7 +28,7 @@ class RestClient(//implements WSBodyReadables, WSBodyWritables
   }
   
   def SendByBaseNumber(text: String, to: String, bodyId: Int): CompletionStage[WSResponse] = {
-    val json = Json.newObject.put("username", username).put("password", password).put("text", text).put("to", to).put("bodyId", bodyId)
+    val json = Json.newObject.put("username", username).put("password", password).put("text", text).put("to", to).put("bodyId", String.valueOf(bodyId))
     ws.url(baseRestUrl + "BaseServiceNumber").addHeader("Content-Type", "application/json").post(json)
   }
 
