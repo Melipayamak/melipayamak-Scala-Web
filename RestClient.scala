@@ -26,6 +26,11 @@ class RestClient(//implements WSBodyReadables, WSBodyWritables
     //ok("result: " + response.getBody())//.asJson().findValues("full_name")
     //);    
   }
+  
+  def SendByBaseNumber(text: String, to: String, bodyId: Int): CompletionStage[WSResponse] = {
+    val json = Json.newObject.put("username", username).put("password", password).put("text", text).put("to", to).put("bodyId", bodyId)
+    ws.url(baseRestUrl + "BaseServiceNumber").addHeader("Content-Type", "application/json").post(json)
+  }
 
   def GetDeliveries2(recId: Long): CompletionStage[WSResponse] = {
     val json = Json.newObject.put("username", username).put("password", password).put("recId", String.valueOf(recId))
