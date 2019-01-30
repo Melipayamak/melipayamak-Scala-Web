@@ -54,6 +54,19 @@ class SoapClient(//implements WSBodyReadables, WSBodyWritables
     ws.url(baseSoapUrl + _sendOp).setHeader("Content-Type", "text/xml; charset=utf-8").post(wsReq)
   }
 
+  def SendByBaseNumber(text: Array[String], to: String, bodyId: Int): CompletionStage[WSResponse] = {
+    val _func = "SendByBaseNumber"
+    val _text = "<string>" + text.mkString("</string><string>") + "</string>"
+    val wsReq = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><" + _func + " xmlns=\"http://tempuri.org/\"><username>" + username + "</username><password>" + password + "</password><text>" + _text + "</text><to>" + to + "</to><bodyId>" + bodyId + "</bodyId></" + _func + "></soap:Body></soap:Envelope>"
+    ws.url(baseSoapUrl + _sendOp).setHeader("Content-Type", "text/xml; charset=utf-8").post(wsReq)
+  }
+
+  def SendByBaseNumber2(text: String, to: String, bodyId: Int): CompletionStage[WSResponse] = {
+    val _func = "SendByBaseNumber2"
+    val wsReq = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><" + _func + " xmlns=\"http://tempuri.org/\"><username>" + username + "</username><password>" + password + "</password><text>" + text + "</text><to>" + to + "</to><bodyId>" + bodyId + "</bodyId></" + _func + "></soap:Body></soap:Envelope>"
+    ws.url(baseSoapUrl + _sendOp).setHeader("Content-Type", "text/xml; charset=utf-8").post(wsReq)
+  }
+  
   def getMessages(location: Int, from: String, index: Int, count: Int): CompletionStage[WSResponse] = {
     val _func = "getMessages"
     val wsReq = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><" + _func + " xmlns=\"http://tempuri.org/\"><username>" + username + "</username><password>" + password + "</password><location>" + String.valueOf(location) + "</location><from>" + from + "</from><index>" + String.valueOf(index) + "</index><count>" + String.valueOf(count) + "</count></" + _func + "></soap:Body></soap:Envelope>"
