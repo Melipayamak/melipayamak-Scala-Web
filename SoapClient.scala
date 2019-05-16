@@ -19,6 +19,8 @@ class SoapClient(//implements WSBodyReadables, WSBodyWritables
   final private val _scheduleOp = "schedule.asmx"
   final private val _ticketsOp = "tickets.asmx"
   final private val _usersOp = "users.asmx"
+  final private val _voiceOp = "voice.asmx";
+
   private var username = ""
   private var password = ""
 
@@ -656,4 +658,43 @@ class SoapClient(//implements WSBodyReadables, WSBodyWritables
     val wsReq = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><" + _func + " xmlns=\"http://tempuri.org/\"><username>" + username + "</username><password>" + password + "</password><scheduleIdList>" + _list + "</scheduleIdList></" + _func + "></soap:Body></soap:Envelope>"
     ws.url(baseSoapUrl + _scheduleOp).setHeader("Content-Type", "text/xml; charset=utf-8").post(wsReq)
   }
+
+
+  // Voice API Operations
+  def GetSendSMSWithSpeechTextStatus(recId: Long): CompletionStage[WSResponse] = {
+    val _func = "GetSendSMSWithSpeechTextStatus"
+    val wsReq = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><" + _func + " xmlns=\"http://tempuri.org/\"><username>" + username + "</username><password>" + password + "</password><recId>" + String.valueOf(recId) + "</recId></" + _func + "></soap:Body></soap:Envelope>"
+    ws.url(baseSoapUrl + _voiceOp).setHeader("Content-Type", "text/xml; charset=utf-8").post(wsReq)
+  }
+
+  def SendBulkSpeechText(title: String, body: String, receivers: String, DateToSend: String, repeatCount: Int): CompletionStage[WSResponse] = {
+    val _func = "SendBulkSpeechText"
+    val wsReq = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><" + _func + " xmlns=\"http://tempuri.org/\"><username>" + username + "</username><password>" + password + "</password><title>" + title + "</title><body>" + body + "</body><receivers>" + receivers + "</receivers><DateToSend>" + DateToSend + "</DateToSend><repeatCount>" + String.valueOf(repeatCount) + "</repeatCount></" + _func + "></soap:Body></soap:Envelope>"
+    ws.url(baseSoapUrl + _voiceOp).setHeader("Content-Type", "text/xml; charset=utf-8").post(wsReq)
+  }
+
+  def SendBulkVoiceSMS(title: String, voiceFileId: Int, receivers: String, DateToSend: String, repeatCount: Int): CompletionStage[WSResponse] = {
+    val _func = "SendBulkVoiceSMS"
+    val wsReq = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><" + _func + " xmlns=\"http://tempuri.org/\"><username>" + username + "</username><password>" + password + "</password><title>" + title + "</title><voiceFileId>" + String.valueOf(voiceFileId) + "</voiceFileId><receivers>" + receivers + "</receivers><DateToSend>" + DateToSend + "</DateToSend><repeatCount>" + String.valueOf(repeatCount) + "</repeatCount></" + _func + "></soap:Body></soap:Envelope>"
+    ws.url(baseSoapUrl + _voiceOp).setHeader("Content-Type", "text/xml; charset=utf-8").post(wsReq)
+  }
+
+  def SendSMSWithSpeechText(smsBody: String, speechBody: String, from: String, to: String): CompletionStage[WSResponse] = {
+    val _func = "SendSMSWithSpeechText"
+    val wsReq = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><" + _func + " xmlns=\"http://tempuri.org/\"><username>" + username + "</username><password>" + password + "</password><smsBody>" + smsBody + "</smsBody><speechBody>" + speechBody + "</speechBody><from>" + from + "</from><to>" + to + "</to></" + _func + "></soap:Body></soap:Envelope>"
+    ws.url(baseSoapUrl + _voiceOp).setHeader("Content-Type", "text/xml; charset=utf-8").post(wsReq)
+  }
+
+  def SendSMSWithSpeechTextBySchduleDate(smsBody: String, speechBody: String, from: String, to: String, scheduleDate: String): CompletionStage[WSResponse] = {
+    val _func = "SendSMSWithSpeechTextBySchduleDate"
+    val wsReq = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><" + _func + " xmlns=\"http://tempuri.org/\"><username>" + username + "</username><password>" + password + "</password><smsBody>" + smsBody + "</smsBody><speechBody>" + speechBody + "</speechBody><from>" + from + "</from><to>" + to + "</to><scheduleDate>" + scheduleDate + "</scheduleDate></" + _func + "></soap:Body></soap:Envelope>"
+    ws.url(baseSoapUrl + _voiceOp).setHeader("Content-Type", "text/xml; charset=utf-8").post(wsReq)
+  }
+
+  def UploadVoiceFile(title: String, base64StringFile: String): CompletionStage[WSResponse] = {
+    val _func = "UploadVoiceFile"
+    val wsReq = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><" + _func + " xmlns=\"http://tempuri.org/\"><username>" + username + "</username><password>" + password + "</password><title>" + title + "</title><base64StringFile>" + base64StringFile + "</base64StringFile></" + _func + "></soap:Body></soap:Envelope>"
+    ws.url(baseSoapUrl + _voiceOp).setHeader("Content-Type", "text/xml; charset=utf-8").post(wsReq)
+  }
+
 }
